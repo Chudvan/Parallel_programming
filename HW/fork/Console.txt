@@ -1,0 +1,2 @@
+g++ fork_example_2.cpp -o fork_example_2
+

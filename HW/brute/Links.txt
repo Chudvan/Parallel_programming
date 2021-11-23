@@ -1,0 +1,15 @@
+Настройка VS Code для c++ - https://youtu.be/dyWpMoxbpwo
+Debugging C/C++ with Visual Studio Code - https://youtu.be/X2tM21nmzfk
+---
+Hello, world! - https://ps-group.github.io/ps1/lesson_cpp_1
+g++: fatal error. - https://www.linux.org.ru/forum/development/12742945
+бесконечность в C++ - https://codengineering.ru/q/setting-an-int-to-infinity-in-c-13473
+pow(a,b) - https://www.cyberforum.ru/cpp-beginners/thread186996.html
+Указатели на функции - https://ravesli.com/urok-104-ukazateli-na-funktsii/
+Математические функции в С++ - http://cppstudio.com/post/413/
+Вычисление значений функции - https://planetcalc.ru/2787/
+Microsoft Math Resolver - https://mathsolver.microsoft.com/ru/solve-problem/%60sin%20(%20%205%20%60times%20%20(99.9495%20%20%20)%20%20%20%20%5E%20%7B%203%20%20%7D%20%20)%2B%20%60cos%20(%20%207%20%60times%20%20(99.9495)%20%20%5E%20%7B%204%20%20%7D%20%20%20%20%20)%20%20%20%60times%20%2099.9495
+Экстремумы функции - https://math.semestr.ru/math/minmax.php
+---
+Модуль math - https://pythonworld.ru/moduli/modul-math.html
+

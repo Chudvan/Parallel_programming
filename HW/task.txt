@@ -1,0 +1,47 @@
+Придумать какую-то "страшную" (sin5*x^3+cos(7*x^4)*x) функцию, задать отрезок (0<=х<=100), шаг (dx=1e-4):
+1) найти минимум на отрезке
+2) найти максимум на отрезке
+
+(В скобках пример)
+
+Распараллелить с помощью:
+
+1. CreateThread
+2. pthread_create
+3. std::thread, std::mutex
+
+1a. TlsSetValue / TlsGetValue
+1b. HeapCreate / HeapAlloc
+1c. CriticalSection
+1d. Interlocked...
+
+4. CreateProcess
+
+4a. CreatePipe
+4b. socket / listen / connect - tcp server/client
+4c. WriteProcessMemory / ReadProcessMemory
+4d. MapViewOfFile
+4e. SMB/share - несколько компьютеров
+4f. DDE
+4g. SendMessage / PeekMessage
+4h. CreateMutex
+4i. CreateSemaphore
+
+5. fork
++5a. mkfifo/pipe
+5b. socket / listen / connect - tcp server/client
+5c. signal
+
+6. MPI
+7. OMP
+8. CUDA
+
+8a. параллельная редукция
+8b. MPI+CUDA
+
+допы - может еще что нагуглите/придумаете ;)
+
+5 - обычные задания
+10 - допы (только 1 человеку)
+20 - cuda
+20 - допы для cuda (только 1 человеку) 

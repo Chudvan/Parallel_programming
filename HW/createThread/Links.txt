@@ -1,0 +1,7 @@
+Потоки (threads) в WinAPI - http://shatalov.ghost17.ru/winapi/threads.html
+stdcall или winapi - https://ru.wikipedia.org/wiki/%D0%A1%D0%BE%D0%B3%D0%BB%D0%B0%D1%88%D0%B5%D0%BD%D0%B8%D0%B5_%D0%BE_%D0%B2%D1%8B%D0%B7%D0%BE%D0%B2%D0%B5#stdcall_%D0%B8%D0%BB%D0%B8_winapi
+_getch - https://docs.microsoft.com/ru-ru/cpp/c-runtime-library/reference/getch-getwch?view=msvc-160&viewFallbackFrom=vs-2019
+long long - https://docs.microsoft.com/ru-ru/cpp/cpp/data-type-ranges?view=msvc-160&viewFallbackFrom=vs-2019
+std::numeric_limits<double>::max() недостаточно аргументов для вызова макроса - https://stackoverflow.com/questions/6884093/warning-c4003-not-enough-actual-parameters-for-macro-max-visual-studio-2010
+Предупреждение C26451 - ничего не делал - https://docs.microsoft.com/ru-ru/cpp/code-quality/c26451?f1url=%3FappId%3DDev16IDEF1%26l%3DRU-RU%26k%3Dk(C26451)%26rd%3Dtrue&view=msvc-160
+

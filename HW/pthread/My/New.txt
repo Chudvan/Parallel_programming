@@ -1,0 +1,2 @@
+#include <limits> (для std::numeric_limits<double>::max();) - https://en.cppreference.com/w/cpp/types/numeric_limits
+
