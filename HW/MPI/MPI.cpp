@@ -51,10 +51,7 @@ int main(int argc, char* argv[]){
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     MPI_Comm_size(MPI_COMM_WORLD, &commSize);
 
-    cout << "rank " << rank << endl;
-    cout << "commSize " << commSize << endl;
-
-    double a, b;
+    double a, b, a_local, b_local;
     bool correct_range = true;
     double buffer[2];
     Point result;
@@ -89,17 +86,16 @@ int main(int argc, char* argv[]){
         for (int i = ROOT + 1; i < commSize; i++){
             MPI_Send(&correct_range, 1, MPI_C_BOOL, i, i, MPI_COMM_WORLD);
             MPI_Send(range, 2, MPI_DOUBLE, i, i + 1000, MPI_COMM_WORLD);
-            cout << "send " << i << " " << range[0] << " " << range[1] << endl;
         }
 
-        cout << rank << " start find " << a + (b - a) * rank / commSize << " " << a + (b - a) * (rank + 1) / commSize << endl;
+        a_local = a + (b - a) * rank / commSize;
+        b_local = a + (b - a) * (rank + 1) / commSize;
 
-        result = find_min_in_range(f, a + (b - a) * rank / commSize, a + (b - a) * (rank + 1) / commSize);
+        result = find_min_in_range(f, a_local, b_local);
+
+        cout << "process " << rank << " [" << a_local << ";" << b_local << "]: (" << result.x << ";" << result.y << ")" << endl;
 
         for (int i = ROOT + 1; i < commSize; i++){
-
-            cout << "root start receive " << i << endl;
-
             MPI_Recv(buffer, 2, MPI_DOUBLE, i, i + 2000, MPI_COMM_WORLD, &status);
             if (buffer[1] < result.y){
                 result.x = buffer[0];
@@ -110,6 +106,8 @@ int main(int argc, char* argv[]){
         double end = MPI_Wtime();
         double time_elapsed = end - start;
 
+        usleep(300);
+
         cout << "MPI result: " << result.x << " " << result.y << endl;
         cout << "time elapsed: " << time_elapsed << " seconds" << endl;
     }
@@ -118,26 +116,22 @@ int main(int argc, char* argv[]){
         MPI_Recv(&correct_range, 1, MPI_C_BOOL, ROOT, rank, MPI_COMM_WORLD, &status);
 
         if (!correct_range){
-
-            cout << rank << " range not correct" << endl;
-
             MPI_Finalize();
-
             return 1;
         }
 
         MPI_Recv(buffer, 2, MPI_DOUBLE, ROOT, rank + 1000, MPI_COMM_WORLD, &status);
-
-        cout << rank << " start receive " << ROOT << endl;
-
         a = buffer[0];
         b = buffer[1];
+        a_local = a + (b - a) * rank / commSize;
+        b_local = a + (b - a) * (rank + 1) / commSize;
 
-        cout << rank << " start find " << a + (b - a) * rank / commSize << " " << a + (b - a) * (rank + 1) / commSize << endl;
-
-        result = find_min_in_range(f, a + (b - a) * rank / commSize, a + (b - a) * (rank + 1) / commSize);
+        result = find_min_in_range(f, a_local, b_local);
         buffer[0] = result.x;
         buffer[1] = result.y;
+
+        cout << "process " << rank << " [" << a_local << ";" << b_local << "]: (" << result.x << ";" << result.y << ")" << endl;
+
         MPI_Send(buffer, 2, MPI_DOUBLE, ROOT, rank + 2000, MPI_COMM_WORLD);
     }
 
