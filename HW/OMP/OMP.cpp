@@ -67,7 +67,8 @@ int main(){
         Point local_result = find_min_in_range(f, b * i / N, b * (i + 1) / N);
         #pragma omp critical (cout_and_Point)
         {
-            cout << "thread " << i << ": " << local_result.x << " " << local_result.y << endl;
+            cout << "thread " << i << " [" << b * i / N << ";" << b * (i + 1) / N << "]: (" << 
+                local_result.x << ";" << local_result.y << ")" << endl;
             if(local_result.y < global_result.y){
                 global_result = local_result;
 		    }
@@ -79,7 +80,7 @@ int main(){
         chrono::steady_clock::period::num /
         chrono::steady_clock::period::den;
 
-    cout << "global OMP result: " << global_result.x << " " << global_result.y << endl;
+    cout << "OMP result: " << global_result.x << " " << global_result.y << endl;
     cout << "time elapsed: " << time_elapsed << " seconds" << endl;
 
     return 0;
