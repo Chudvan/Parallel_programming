@@ -7,14 +7,14 @@
 
 using namespace std;
 
-LONG WINAPI WndProc(HWND, UINT, WPARAM, LPARAM); // функция обработки сообщений окна
+LONG WINAPI WndProc(HWND, UINT, WPARAM, LPARAM); // С„СѓРЅРєС†РёСЏ РѕР±СЂР°Р±РѕС‚РєРё СЃРѕРѕР±С‰РµРЅРёР№ РѕРєРЅР°
 
-const int N = 8; //кол-во процессов
+const int N = 8; //РєРѕР»-РІРѕ РїСЂРѕС†РµСЃСЃРѕРІ
 const char* LPSZCLASSNAME = "MyClass";
-const char* LPWINDOWNAME = "Глобальный минимум";
+const char* LPWINDOWNAME = "Р“Р»РѕР±Р°Р»СЊРЅС‹Р№ РјРёРЅРёРјСѓРј";
 const char* F_STRING = "f = sin(5 * pow(x, 3)) + cos(7 * pow(x, 4)) * x";
 
-// Функция создания N процессов с глобальными границами интервала [a;b]
+// Р¤СѓРЅРєС†РёСЏ СЃРѕР·РґР°РЅРёСЏ N РїСЂРѕС†РµСЃСЃРѕРІ СЃ РіР»РѕР±Р°Р»СЊРЅС‹РјРё РіСЂР°РЅРёС†Р°РјРё РёРЅС‚РµСЂРІР°Р»Р° [a;b]
 void createProcesses(double a, double b) {
     STARTUPINFO si[N];
     PROCESS_INFORMATION pi[N];
@@ -60,12 +60,12 @@ ChildProcess.exe";
     }
 }
 
-// Функция преобразования строки в число
+// Р¤СѓРЅРєС†РёСЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ СЃС‚СЂРѕРєРё РІ С‡РёСЃР»Рѕ
 int StrToInt(char* s)
 {
-    int temp = 0; // число
+    int temp = 0; // С‡РёСЃР»Рѕ
     int i = 0;
-    int sign = 0; // знак числа 0- положительное, 1 - отрицательное
+    int sign = 0; // Р·РЅР°Рє С‡РёСЃР»Р° 0- РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРµ, 1 - РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ
     if (s[i] == '-')
     {
         sign = 1;
@@ -83,13 +83,13 @@ int StrToInt(char* s)
     return(temp);
 }
 
-//Функция инициализации переменных для вычисления минимума/максимума
+//Р¤СѓРЅРєС†РёСЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РїРµСЂРµРјРµРЅРЅС‹С… РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РјРёРЅРёРјСѓРјР°/РјР°РєСЃРёРјСѓРјР°
 void init_n_and_min_max(int* _n, double* min_) {
     *_n = 0;
     *min_ = std::numeric_limits<double>::max();
 }
 
-//Функция разбиения char* с разделителем sep в 2 double
+//Р¤СѓРЅРєС†РёСЏ СЂР°Р·Р±РёРµРЅРёСЏ char* СЃ СЂР°Р·РґРµР»РёС‚РµР»РµРј sep РІ 2 double
 void two_doubles_from_string(double* first_d, double* second_d, 
     char* str, char sep) {
 
@@ -107,35 +107,35 @@ void two_doubles_from_string(double* first_d, double* second_d,
     *second_d = atof(s2);
 }
 
-//Функция инициализации главного окна
+//Р¤СѓРЅРєС†РёСЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РіР»Р°РІРЅРѕРіРѕ РѕРєРЅР°
 void InitWindow(MSG* msg, HINSTANCE* hInstance, int nCmdShow) {
-    HWND hwnd; // дескриптор окна
-    WNDCLASS w; // структура класса окна
-    memset(&w, 0, sizeof(WNDCLASS)); // очистка памяти для структуры
+    HWND hwnd; // РґРµСЃРєСЂРёРїС‚РѕСЂ РѕРєРЅР°
+    WNDCLASS w; // СЃС‚СЂСѓРєС‚СѓСЂР° РєР»Р°СЃСЃР° РѕРєРЅР°
+    memset(&w, 0, sizeof(WNDCLASS)); // РѕС‡РёСЃС‚РєР° РїР°РјСЏС‚Рё РґР»СЏ СЃС‚СЂСѓРєС‚СѓСЂС‹
     w.style = CS_HREDRAW | CS_VREDRAW;
     w.lpfnWndProc = WndProc;
     w.hInstance = *hInstance;
     w.hbrBackground = CreateSolidBrush(0x00FFFFFF);
     w.lpszClassName = LPSZCLASSNAME;
-    RegisterClass(&w); // регистрация класса окна
-    // Создание окна
+    RegisterClass(&w); // СЂРµРіРёСЃС‚СЂР°С†РёСЏ РєР»Р°СЃСЃР° РѕРєРЅР°
+    // РЎРѕР·РґР°РЅРёРµ РѕРєРЅР°
     hwnd = CreateWindow(LPSZCLASSNAME, LPWINDOWNAME,
         WS_OVERLAPPEDWINDOW,
         500, 300, 400, 300,
         NULL, NULL, *hInstance, NULL);
-    ShowWindow(hwnd, nCmdShow); // отображение окна
-    UpdateWindow(hwnd);         // перерисовка окна
+    ShowWindow(hwnd, nCmdShow); // РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РѕРєРЅР°
+    UpdateWindow(hwnd);         // РїРµСЂРµСЂРёСЃРѕРІРєР° РѕРєРЅР°
 }
 
-// Функция обработки сообщений
+// Р¤СѓРЅРєС†РёСЏ РѕР±СЂР°Р±РѕС‚РєРё СЃРѕРѕР±С‰РµРЅРёР№
 LONG WINAPI WndProc(HWND hwnd, UINT Message,
     WPARAM wparam, LPARAM lparam) {
     HDC hdc;
     HINSTANCE hInst;
     PAINTSTRUCT ps;
-    static HWND hBtn; // дескриптор кнопки
-    static HWND hEdt1, hEdt2; // дескрипторы полей редактирования
-    static HWND hStat; // дескриптор статического текста
+    static HWND hBtn; // РґРµСЃРєСЂРёРїС‚РѕСЂ РєРЅРѕРїРєРё
+    static HWND hEdt1, hEdt2; // РґРµСЃРєСЂРёРїС‚РѕСЂС‹ РїРѕР»РµР№ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+    static HWND hStat; // РґРµСЃРєСЂРёРїС‚РѕСЂ СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ С‚РµРєСЃС‚Р°
     TCHAR StrA[20];
     double a, b, Len;
     static int _n;
@@ -145,37 +145,37 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message,
     const WPARAM CREATE_PROCESSES_WPARAM = 1001;
 
     switch (Message) {
-    case WM_CREATE: // сообщение создания окна
+    case WM_CREATE: // СЃРѕРѕР±С‰РµРЅРёРµ СЃРѕР·РґР°РЅРёСЏ РѕРєРЅР°
         init_n_and_min_max(&_n, &min_);
 
-        hInst = ((LPCREATESTRUCT)lparam)->hInstance; // дескриптор приложения
-        // Создаем и показываем первое поле редактирования
+        hInst = ((LPCREATESTRUCT)lparam)->hInstance; // РґРµСЃРєСЂРёРїС‚РѕСЂ РїСЂРёР»РѕР¶РµРЅРёСЏ
+        // РЎРѕР·РґР°РµРј Рё РїРѕРєР°Р·С‹РІР°РµРј РїРµСЂРІРѕРµ РїРѕР»Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
         hEdt1 = CreateWindow("edit", "0",
             WS_CHILD | WS_VISIBLE | WS_BORDER | ES_RIGHT, 50, 50, 60, 20,
             hwnd, 0, hInst, NULL);
         ShowWindow(hEdt1, SW_SHOWNORMAL);
-        // Создаем и показываем второе поле редактирования
+        // РЎРѕР·РґР°РµРј Рё РїРѕРєР°Р·С‹РІР°РµРј РІС‚РѕСЂРѕРµ РїРѕР»Рµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
         hEdt2 = CreateWindow("edit", "0",
             WS_CHILD | WS_VISIBLE | WS_BORDER | ES_RIGHT, 150, 50, 60,
             20, hwnd, 0, hInst, NULL);
         ShowWindow(hEdt2, SW_SHOWNORMAL);
-        // Создаем и показываем кнопку
-        hBtn = CreateWindow("button", "Рассчитать",
+        // РЎРѕР·РґР°РµРј Рё РїРѕРєР°Р·С‹РІР°РµРј РєРЅРѕРїРєСѓ
+        hBtn = CreateWindow("button", "Р Р°СЃСЃС‡РёС‚Р°С‚СЊ",
             WS_CHILD | WS_VISIBLE | WS_BORDER,
             50, 130, 120, 30, hwnd, 0, hInst, NULL);
         ShowWindow(hBtn, SW_SHOWNORMAL);
-        // Создаем и показываем поле текста для результата
+        // РЎРѕР·РґР°РµРј Рё РїРѕРєР°Р·С‹РІР°РµРј РїРѕР»Рµ С‚РµРєСЃС‚Р° РґР»СЏ СЂРµР·СѓР»СЊС‚Р°С‚Р°
         hStat = CreateWindow("static", "0", WS_CHILD | WS_VISIBLE,
             150, 200, 180, 40, hwnd, 0, hInst, NULL);
         ShowWindow(hStat, SW_SHOWNORMAL);
         break;
-    case WM_COMMAND:  // сообщение о команде
-        if (lparam == (LPARAM)hBtn)    // если нажали на кнопку
+    case WM_COMMAND:  // СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РєРѕРјР°РЅРґРµ
+        if (lparam == (LPARAM)hBtn)    // РµСЃР»Рё РЅР°Р¶Р°Р»Рё РЅР° РєРЅРѕРїРєСѓ
         {
             Len = GetWindowText(hEdt1, StrA, 20);
-            a = StrToInt(StrA); // считываем число из первого поля
+            a = StrToInt(StrA); // СЃС‡РёС‚С‹РІР°РµРј С‡РёСЃР»Рѕ РёР· РїРµСЂРІРѕРіРѕ РїРѕР»СЏ
             Len = GetWindowText(hEdt2, StrA, 20);
-            b = StrToInt(StrA); // считываем число из второго поля
+            b = StrToInt(StrA); // СЃС‡РёС‚С‹РІР°РµРј С‡РёСЃР»Рѕ РёР· РІС‚РѕСЂРѕРіРѕ РїРѕР»СЏ
             SendMessage(hwnd, WM_COMMAND, (WPARAM)CREATE_PROCESSES_WPARAM,
                 (LPARAM)((to_string(a) + " " + to_string(b)).c_str()));
         }
@@ -200,30 +200,30 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message,
         SetWindowText(hStat, (std::to_string(min_) + "\n" + std::to_string(x_min)).c_str());
         init_n_and_min_max(&_n, &min_);
         break;
-    case WM_PAINT: // перерисовка окна
-        hdc = BeginPaint(hwnd, &ps); // начало перерисовки
-        TextOut(hdc, 50, 20, "Введите границы интервала [a;b]", 32); // вывод текстовых сообщений
-        TextOut(hdc, 50, 80, "Инструменты: SendMessage/PeekMessage", 37);
+    case WM_PAINT: // РїРµСЂРµСЂРёСЃРѕРІРєР° РѕРєРЅР°
+        hdc = BeginPaint(hwnd, &ps); // РЅР°С‡Р°Р»Рѕ РїРµСЂРµСЂРёСЃРѕРІРєРё
+        TextOut(hdc, 50, 20, "Р’РІРµРґРёС‚Рµ РіСЂР°РЅРёС†С‹ РёРЅС‚РµСЂРІР°Р»Р° [a;b]", 32); // РІС‹РІРѕРґ С‚РµРєСЃС‚РѕРІС‹С… СЃРѕРѕР±С‰РµРЅРёР№
+        TextOut(hdc, 50, 80, "РРЅСЃС‚СЂСѓРјРµРЅС‚С‹: SendMessage/PeekMessage", 37);
         TextOut(hdc, 50, 100, F_STRING, 48);
-        TextOut(hdc, 50, 180, "Результат:", 11);
+        TextOut(hdc, 50, 180, "Р РµР·СѓР»СЊС‚Р°С‚:", 11);
         TextOut(hdc, 50, 200, "Y", 2);
         TextOut(hdc, 50, 220, "X", 2);
-        EndPaint(hwnd, &ps); // конец перерисовки
+        EndPaint(hwnd, &ps); // РєРѕРЅРµС† РїРµСЂРµСЂРёСЃРѕРІРєРё
         break;
-    case WM_DESTROY: // закрытие окна
+    case WM_DESTROY: // Р·Р°РєСЂС‹С‚РёРµ РѕРєРЅР°
         PostQuitMessage(0);
         break;
-    default: // обработка сообщения по умолчанию
+    default: // РѕР±СЂР°Р±РѕС‚РєР° СЃРѕРѕР±С‰РµРЅРёСЏ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
         return DefWindowProc(hwnd, Message, wparam, lparam);
     }
     return 0;
 }
 
-// Стартовая функция
+// РЎС‚Р°СЂС‚РѕРІР°СЏ С„СѓРЅРєС†РёСЏ
 int  WINAPI  WinMain(HINSTANCE  hInstance,
     HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-    MSG msg;   // структура сообщения
+    MSG msg;   // СЃС‚СЂСѓРєС‚СѓСЂР° СЃРѕРѕР±С‰РµРЅРёСЏ
     InitWindow(&msg, &hInstance, nCmdShow);
 
     int n = 0;
@@ -233,7 +233,7 @@ int  WINAPI  WinMain(HINSTANCE  hInstance,
             continue;
         }
         n += 1;
-        if (n == N) break; // Ожидаем пока все процессы завершат работу
+        if (n == N) break; // РћР¶РёРґР°РµРј РїРѕРєР° РІСЃРµ РїСЂРѕС†РµСЃСЃС‹ Р·Р°РІРµСЂС€Р°С‚ СЂР°Р±РѕС‚Сѓ
     }
 
     while (GetMessage(&msg, NULL, 0, 0)) {

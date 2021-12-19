@@ -11,7 +11,7 @@
 #include <fstream>
 
 const char* LPSZCLASSNAME = "MyClass";
-const char* LPWINDOWNAME = "Глобальный минимум";
+const char* LPWINDOWNAME = "в€љР»РѕР±Р°Р»СЊРЅС‹Р№ РјРёРЅРёРјСѓРј";
 
 double f(double x) {
 	return sin(5 * pow(x, 3)) + cos(7 * pow(x, 4)) * x;
