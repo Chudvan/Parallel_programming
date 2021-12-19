@@ -9,9 +9,8 @@
 #include <iostream>
 #include <limits>
 #include <fstream>
+#include "config.h"
 
-const char* LPSZCLASSNAME = "MyClass";
-const char* LPWINDOWNAME = "√лобальный минимум";
 
 double f(double x) {
 	return sin(5 * pow(x, 3)) + cos(7 * pow(x, 4)) * x;

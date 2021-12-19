@@ -4,15 +4,12 @@
 
 #include <windows.h>
 #include <string>
+#include "config.h"
 
 using namespace std;
 
-LONG WINAPI WndProc(HWND, UINT, WPARAM, LPARAM); // функция обработки сообщений окна
 
-const int N = 8; //кол-во процессов
-const char* LPSZCLASSNAME = "MyClass";
-const char* LPWINDOWNAME = "Глобальный минимум";
-const char* F_STRING = "f = sin(5 * pow(x, 3)) + cos(7 * pow(x, 4)) * x";
+LONG WINAPI WndProc(HWND, UINT, WPARAM, LPARAM); // функция обработки сообщений окна
 
 // Функция создания N процессов с глобальными границами интервала [a;b]
 void createProcesses(double a, double b) {
@@ -130,6 +127,7 @@ void InitWindow(MSG* msg, HINSTANCE* hInstance, int nCmdShow) {
 // Функция обработки сообщений
 LONG WINAPI WndProc(HWND hwnd, UINT Message,
     WPARAM wparam, LPARAM lparam) {
+    const WPARAM CREATE_PROCESSES_WPARAM = 1000;
     HDC hdc;
     HINSTANCE hInst;
     PAINTSTRUCT ps;
@@ -142,7 +140,7 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message,
     char lparam_[100];
     double cur_min, cur_x_min;
     static double min_, x_min;
-    const WPARAM CREATE_PROCESSES_WPARAM = 1001;
+    string str_arr[6];
 
     switch (Message) {
     case WM_CREATE: // сообщение создания окна
@@ -160,7 +158,7 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message,
             20, hwnd, 0, hInst, NULL);
         ShowWindow(hEdt2, SW_SHOWNORMAL);
         // Создаем и показываем кнопку
-        hBtn = CreateWindow("button", "Рассчитать",
+        hBtn = CreateWindow("button", "Calculate",
             WS_CHILD | WS_VISIBLE | WS_BORDER,
             50, 130, 120, 30, hwnd, 0, hInst, NULL);
         ShowWindow(hBtn, SW_SHOWNORMAL);
@@ -202,12 +200,20 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message,
         break;
     case WM_PAINT: // перерисовка окна
         hdc = BeginPaint(hwnd, &ps); // начало перерисовки
-        TextOut(hdc, 50, 20, "Введите границы интервала [a;b]", 32); // вывод текстовых сообщений
-        TextOut(hdc, 50, 80, "Инструменты: SendMessage/PeekMessage", 37);
-        TextOut(hdc, 50, 100, F_STRING, 48);
-        TextOut(hdc, 50, 180, "Результат:", 11);
-        TextOut(hdc, 50, 200, "Y", 2);
-        TextOut(hdc, 50, 220, "X", 2);
+
+        str_arr[0] = "Input interval boundaries [a;b]";
+        str_arr[1] = "Tools: SendMessage/PeekMessage";
+        str_arr[2] = F_STRING;
+        str_arr[3] = "Result:";
+        str_arr[4] = "Y";
+        str_arr[5] = "X";
+
+        TextOut(hdc, 50, 20, str_arr[0].c_str(), str_arr[0].size()); // вывод текстовых сообщений
+        TextOut(hdc, 50, 80, str_arr[1].c_str(), str_arr[1].size());
+        TextOut(hdc, 50, 100, str_arr[2].c_str(), str_arr[2].size());
+        TextOut(hdc, 50, 180, str_arr[3].c_str(), str_arr[3].size());
+        TextOut(hdc, 50, 200, str_arr[4].c_str(), str_arr[4].size());
+        TextOut(hdc, 50, 220, str_arr[5].c_str(), str_arr[5].size());
         EndPaint(hwnd, &ps); // конец перерисовки
         break;
     case WM_DESTROY: // закрытие окна
